@@ -3,9 +3,18 @@
 exports[`generateLinkedList should generate linked list from values 2 1`] = `
 {
   "next": {
-    "next": null,
-    "value": null,
+    "next": {
+      "next": {
+        "next": {
+          "next": null,
+          "value": null,
+        },
+        "value": {},
+      },
+      "value": "string",
+    },
+    "value": 2,
   },
-  "value": 2,
+  "value": true,
 }
 `;
