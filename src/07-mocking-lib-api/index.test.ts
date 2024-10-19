@@ -9,7 +9,7 @@ describe('throttledGetDataFromApi', () => {
   let mockGet: jest.Mock;
   beforeEach(() => {
     jest.useFakeTimers();
-    mockGet = jest.fn().mockResolvedValue({ data: 'testData' });
+    mockGet = jest.fn().mockResolvedValue({ data: 'response' });
     (axios.create as jest.Mock).mockReturnValue({
       get: mockGet,
     });
@@ -21,20 +21,20 @@ describe('throttledGetDataFromApi', () => {
   });
 
   test('should create instance with provided base url', async () => {
-    await throttledGetDataFromApi('/path');
+    await throttledGetDataFromApi('/users');
     expect(axios.create).toHaveBeenCalledWith({
       baseURL: 'https://jsonplaceholder.typicode.com',
     });
   });
 
   test('should perform request to correct provided url', async () => {
-    await throttledGetDataFromApi('/path');
+    await throttledGetDataFromApi('/users');
     jest.advanceTimersByTime(5000);
-    expect(mockGet).toHaveBeenCalledWith('/path');
+    expect(mockGet).toHaveBeenCalledWith('/users');
   });
 
   test('should return response data', async () => {
-    const data = await throttledGetDataFromApi('/path');
-    expect(data).toBe('testData');
+    const data = await throttledGetDataFromApi('/users');
+    expect(data).toBe('response');
   });
 });
