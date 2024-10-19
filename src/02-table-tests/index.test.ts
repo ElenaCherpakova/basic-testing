@@ -10,14 +10,15 @@ const testCases = [
   { a: 2, b: 2, action: Action.Multiply, expected: 4 },
   { a: 2, b: 3, action: Action.Exponentiate, expected: 8 },
   { a: '1', b: 3, action: Action.Add, expected: null },
+  { a: 1, b: '3', action: Action.Add, expected: null },
   { a: 1, b: 3, action: 'invalidAction', expected: null },
 ];
 
 describe('simpleCalculator', () => {
-  testCases.forEach(({ a, b, action, expected }) => {
-    const actionName = typeof action === 'string' ? action : Action[action];
-    test(`should perform correctly ${actionName} on ${a} and ${b}`, () => {
+  test.each(testCases)(
+    'should perform %action correctly on %a and %b and return %expected',
+    ({ a, b, action, expected }) => {
       expect(simpleCalculator({ a, b, action })).toBe(expected);
-    });
-  });
+    },
+  );
 });
